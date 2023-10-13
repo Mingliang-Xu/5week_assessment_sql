@@ -23,6 +23,12 @@ module.exports = {
                 rating integer,
                 country_id integer REFERENCES countries(country_id)
             );
+            INSERT INTO cities(name, rating, country_id)
+            VALUES
+                ('Beijing',4,37),
+                ('Shanghai',5,37),
+                ('San Francisco',5,187),
+                ('Mexico City',4,111);
 
             insert into countries (name)
             values ('Afghanistan'),
@@ -257,7 +263,9 @@ module.exports = {
                 b.name AS country
             FROM cities AS a
             JOIN countries as b
-            ON a.country_id = b.country_id
+            ON a.country_id = b.country_id 
+            ORDER BY
+            a.rating DESC;
             `
             ).then((dbRes) => {
                 res.status(200).send(dbRes[0])
